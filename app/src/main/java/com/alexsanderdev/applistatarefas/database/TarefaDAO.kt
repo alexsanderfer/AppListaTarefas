@@ -3,6 +3,7 @@ package com.alexsanderdev.applistatarefas.database
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
+import com.alexsanderdev.applistatarefas.database.DatabaseHelper.Companion.DESCRICAO
 import com.alexsanderdev.applistatarefas.model.Tarefa
 
 class TarefaDAO(context: Context) : ITarefaDAO {
@@ -12,7 +13,7 @@ class TarefaDAO(context: Context) : ITarefaDAO {
 
     override fun salvar(tarefa: Tarefa): Boolean {
         val conteudos = ContentValues()
-        conteudos.put("${DatabaseHelper.DESCRICAO}", tarefa.descricao)
+        conteudos.put(DESCRICAO, tarefa.descricao)
 
         escrita.insert(DatabaseHelper.TABELA_TAREFAS, null, conteudos)
         try {

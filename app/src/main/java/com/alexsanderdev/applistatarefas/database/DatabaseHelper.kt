@@ -30,9 +30,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
                 "$DATA_CRIACAO DATETIME DEFAULT CURRENT_TIMESTAMP" +
                 ");"
         try {
-            db?.execSQL( sqlTabela )
+            db?.execSQL(sqlTabela)
             Log.i("info_db", "Sucesso ao criar a tabela v: $VERSAO_BANCO_DADOS")
-        } catch (e: Exception){
+        } catch (e: Exception) {
+            e.printStackTrace()
             Log.i("info_db", "erro ao criar tabela ${e.message}")
         }
 
