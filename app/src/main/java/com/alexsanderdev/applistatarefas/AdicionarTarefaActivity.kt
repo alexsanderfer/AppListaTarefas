@@ -20,25 +20,52 @@ class AdicionarTarefaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // Recuperar a tarefa passada
+        var tarefa: Tarefa? = null
+        val bundle = intent.extras
+        if (bundle != null) {
+            tarefa = bundle.getSerializable("tarefa") as Tarefa
+            binding.editTarefa.setText(tarefa.descricao)
+        }
+
         binding.btnSalvar.setOnClickListener {
 
             if (binding.editTarefa.text.isNotEmpty()) {
-                val description = binding.editTarefa.text.toString()
-                val task = Tarefa(-1, description, "default")
-                val tarefaDAO = TarefaDAO(this)
-
-                if (tarefaDAO.salvar(task)) {
-                    Toast.makeText(this, "Tarefa cadastrada com sucesso.", Toast.LENGTH_SHORT).show()
-                    finish()
+                if (tarefa != null) {
+                    editarTarefa(tarefa)
                 } else {
-                    Toast.makeText(this, "Não foi possível salvar a tarefa, tente novamente.", Toast.LENGTH_SHORT).show()
+                    salvaTarefa()
                 }
+            } else {
+                Toast.makeText(this, "Preencha uma tarefa", Toast.LENGTH_SHORT).show()
             }
-
         }
     }
 
-    private fun salvar() {
+    private fun editarTarefa(tarefa: Tarefa) {
+        val descricao = binding.editTarefa.text.toString()
+        val tarefaAtualizar = Tarefa(tarefa.idTarefa, descricao, "default")
+        val tarefaDAO = TarefaDAO(this)
 
+        if (tarefaDAO.salvar(tarefaAtualizar)) {
+            Toast.makeText(this, "Tarefa atualizada com sucesso.", Toast.LENGTH_SHORT).show()
+            finish()
+        } else {
+            Toast.makeText(this, "Não foi possível atualizar a tarefa, tente novamente.", Toast.LENGTH_SHORT).show()
+        }
     }
+
+    private fun salvaTarefa() {
+        val description = binding.editTarefa.text.toString()
+        val task = Tarefa(-1, description, "default")
+        val tarefaDAO = TarefaDAO(this)
+
+        if (tarefaDAO.salvar(task)) {
+            Toast.makeText(this, "Tarefa cadastrada com sucesso.", Toast.LENGTH_SHORT).show()
+            finish()
+        } else {
+            Toast.makeText(this, "Não foi possível salvar a tarefa, tente novamente.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

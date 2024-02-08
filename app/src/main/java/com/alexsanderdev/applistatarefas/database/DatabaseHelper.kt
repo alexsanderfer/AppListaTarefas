@@ -17,7 +17,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         //Colunas tabela tarefas
         const val ID_TAREFA = "id_tarefa"
         const val DESCRICAO = "descricao"
-        const val DATA_CRIACAO = "data_criacao"
+        const val DATA_CADASTRO = "data_criacao"
         const val ATIVO = "ativo"
 
     }
@@ -27,7 +27,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         val sqlTabela = "CREATE TABLE IF NOT EXISTS $TABELA_TAREFAS (" +
                 "$ID_TAREFA INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "$DESCRICAO VARCHAR(70) NOT NULL," +
-                "$DATA_CRIACAO DATETIME DEFAULT CURRENT_TIMESTAMP" +
+                "$DATA_CADASTRO DATETIME DEFAULT CURRENT_TIMESTAMP" +
                 ");"
         try {
             db?.execSQL(sqlTabela)
