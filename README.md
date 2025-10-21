@@ -40,7 +40,7 @@ If you want to contribute to this app, you can:
 
 **License:**
 
-This app is licensed under the [License name] license.
+This app is licensed under the MIT license.
 
 **Contact:**
 
